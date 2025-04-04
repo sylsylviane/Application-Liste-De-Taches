@@ -22,18 +22,23 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation des données
         $request->validate([
             'email' => 'required|email|exists:users',
             'password' => 'min:6|max:20',
         ]);
 
+        // Récupération des identifiants
         $credentials = $request->only('email', 'password');
+        //Validation des identifiants
         if (!Auth::validate($credentials)):
             return redirect(route('login'))->withErrors(trans('auth.failed'))->withInput();
         endif;
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
-        Auth::login($user);
+        //Récupération de l'utilisateur
+        $user = Auth::getProvider()->retrieveByCredentials($credentials); //
+        //Gestion des rôles existants. Supprime toutes les associations actuelles de l'utilisateur avec des rôles.
         Auth::user()->roles()->detach();
+        //Attribution du rôle
         if ($user->role_id == 1) {
             $user->assignRole('Admin');
         } elseif ($user->role_id == 2) {
