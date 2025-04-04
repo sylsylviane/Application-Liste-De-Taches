@@ -25,6 +25,7 @@ L'application permet :
 - Authentification et gestion des utilisateurs.
 - Gestion des privilèges et rôles.
 - Ajout, modification et suppression de tâches.
+- Site bilingue
 - Interface utilisateur stylisée grâce à Bootstrap.
 
 ---
@@ -44,8 +45,14 @@ L'application permet :
 
     ```bash
     php artisan migrate
+    ```
+    Ajouter la colonne category_id à la table tasks.
+    Ajouter la colonne role_id à la table users.
+
+    ```bash
     php artisan serve
     ```
+
 ### Auteur
 
 Réalisé par Sylviane Paré, dans le cadre du cours Cadriciel Web.
